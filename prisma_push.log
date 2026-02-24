@@ -1,0 +1,7 @@
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "neondb", schema "public" at "ep-plain-brook-a1fn8dal.ap-southeast-1.aws.neon.tech"
+
+Error: P1000: Authentication failed against database server at `ep-plain-brook-a1fn8dal.ap-southeast-1.aws.neon.tech`, the provided database credentials for `(not available)` are not valid.
+
+Please make sure to provide valid database credentials for the database server at `ep-plain-brook-a1fn8dal.ap-southeast-1.aws.neon.tech`.

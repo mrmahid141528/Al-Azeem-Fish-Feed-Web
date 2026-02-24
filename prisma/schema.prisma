@@ -1,0 +1,80 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  password_hash String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Category {
+  id            Int       @id @default(autoincrement())
+  name          String
+  image_url     String?
+  display_order Int       @default(0)
+  products      Product[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Product {
+  id              Int            @id @default(autoincrement())
+  name            String
+  description     String?
+  category        Category       @relation(fields: [category_id], references: [id])
+  category_id     Int
+  protein_percent String?
+  size            String?
+  price           Float?
+  image_url       String?
+  is_active       Boolean        @default(true)
+  orders          OrderInquiry[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model Pincode {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  area      String?
+  is_active Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderInquiry {
+  id            Int      @id @default(autoincrement())
+  customer_name String
+  phone         String
+  product       Product  @relation(fields: [product_id], references: [id])
+  product_id    Int
+  quantity      String
+  district      String
+  state         String
+  pincode       String
+  address       String
+  notes         String?
+  status        String   @default("PENDING")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model DealerApplication {
+  id           Int      @id @default(autoincrement())
+  name         String
+  phone        String
+  business     String?
+  city         String?
+  details      String
+  status       String   @default("PENDING")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
